@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/WillPapper/circularity-minter",
+  "license": "MIT",
+  "devDependencies": {
+    "@syndicateio/syndicate-node": "^0.0.302",
+    "@vercel/node": "^3.0.7"
+  }
+}
