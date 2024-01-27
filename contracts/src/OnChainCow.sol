@@ -16,10 +16,12 @@ contract OnChainCow is ERC721 {
         _mint(to, currentTokenId);
     }
 
-    function tokenURI(uint256 tokenId) public view override returns (string memory) {
-        // Use Syndicate's API for dynamic metadata
-        // See the documentation at https://docs.syndicate.io/guides/dynamic-nft-metadata
-        return
-            string(abi.encodePacked("https://metadata.syndicate.io/", block.chainid, "/", address(this), "/", tokenId));
+    function tokenURI(uint256 tokenId) public pure override returns (string memory) {
+        // Every 5th NFT is a Happy Cow
+        if (tokenId % 5 == 0) {
+            return "ipfs://QmeK3oULmm64wCKViRfKxo8TtwgUGt8E2HQLpbVphc34h9/on-chain-cow-happy-cow.png";
+        } else {
+            return "ipfs://QmeK3oULmm64wCKViRfKxo8TtwgUGt8E2HQLpbVphc34h9/on-chain-cow-neutral-cow.png";
+        }
     }
 }
