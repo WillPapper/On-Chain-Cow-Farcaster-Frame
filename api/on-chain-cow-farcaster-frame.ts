@@ -47,6 +47,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       <!DOCTYPE html>
       <html>
         <head>
+          <title>On-Chain Cow!</title>
           <meta property="fc:frame" content="vNext" />
           <meta
             property="fc:frame:image"
@@ -67,11 +68,13 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     <!DOCTYPE html>
     <html>
       <head>
+        <title>On-Chain Cow!</title>
         <meta property="fc:frame" content="vNext" />
         <meta
           property="fc:frame:image"
           content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-neutral-cow.png"
         />
+        <meta name="fc:frame:post_url" content="https://on-chain-cow-farcaster-frame.vercel.app/api/on-chain-cow-farcaster-frame" />
         <meta property="fc:frame:button:1" content="Mint your On-Chain Cow!" />
       </head>
     </html>
