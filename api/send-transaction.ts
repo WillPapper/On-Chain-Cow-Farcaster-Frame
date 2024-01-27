@@ -37,12 +37,19 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       },
     });
 
-    res.status(200).json({
-      message: "On-Chain Cow minted!",
-      transactions: {
-        onChainCow: mintTx.transactionId,
-      },
-    });
+    res.status(200).send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta property="fc:frame" content="vNext" />
+          <meta
+            property="fc:frame:image"
+            content="img/on-chain-cow-happy-cow.png"
+          />
+          <meta property="fc:frame:button:1" content="Mint your On-Chain Cow!" />
+        </head>
+      </html>
+    `);
   } catch (error) {
     res.status(500).send(`Error: ${error.message}`);
   }
