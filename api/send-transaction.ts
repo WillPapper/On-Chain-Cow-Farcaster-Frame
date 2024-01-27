@@ -27,7 +27,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     // amount will always be 1
     const mintTx = await syndicate.transact.sendTransaction({
       projectId: "abcab73a-55d2-4441-a93e-edf95d183b34",
-      contractAddress: "",
+      contractAddress: "0xTODO",
       chainId: 84532,
       functionSignature: "mint()",
     });
