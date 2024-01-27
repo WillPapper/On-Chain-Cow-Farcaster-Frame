@@ -19,10 +19,10 @@ contract OnChainCow is ERC721 {
     function tokenURI(uint256 tokenId) public pure override returns (string memory) {
         // Every 5th NFT is a Happy Cow
         if (tokenId % 5 == 0) {
-            return "ipfs://QmfWe2k3a2cwor4yF226bnEtwppHVcNHRBZ1VbGLrv5Shu";
+            return "ipfs://QmbFk3Tcnf5WhybqLvhGodf3naru3bFtHudSbBuzAwqxLy/on-chain-cow-happy-cow.json";
         } else {
             // All other NFTs are Neutral Cows
-            return "ipfs://QmYvkg85xQbaj4N8D4qnh5hToUeqLhSyHQ7drdtrcD2Kd8";
+            return "ipfs://QmbFk3Tcnf5WhybqLvhGodf3naru3bFtHudSbBuzAwqxLy/on-chain-cow-neutral-cow.json";
         }
     }
 }
