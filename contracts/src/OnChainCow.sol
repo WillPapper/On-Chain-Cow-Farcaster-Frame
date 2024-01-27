@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // By Will Papper
-// Deployed to 0x4bD5728b10539caF2Aa767eb2877505d1005207D
+// Deployed to 0xBeFD018F3864F5BBdE665D6dc553e012076A5d44
 
 pragma solidity ^0.8.20;
 
@@ -19,9 +19,10 @@ contract OnChainCow is ERC721 {
     function tokenURI(uint256 tokenId) public pure override returns (string memory) {
         // Every 5th NFT is a Happy Cow
         if (tokenId % 5 == 0) {
-            return "ipfs://QmeK3oULmm64wCKViRfKxo8TtwgUGt8E2HQLpbVphc34h9/on-chain-cow-happy-cow.png";
+            return "ipfs://QmbFk3Tcnf5WhybqLvhGodf3naru3bFtHudSbBuzAwqxLy/on-chain-cow-happy-cow.json";
         } else {
-            return "ipfs://QmeK3oULmm64wCKViRfKxo8TtwgUGt8E2HQLpbVphc34h9/on-chain-cow-neutral-cow.png";
+            // All other NFTs are Neutral Cows
+            return "ipfs://QmbFk3Tcnf5WhybqLvhGodf3naru3bFtHudSbBuzAwqxLy/on-chain-cow-neutral-cow.json";
         }
     }
 }

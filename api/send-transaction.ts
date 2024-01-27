@@ -27,9 +27,14 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     // amount will always be 1
     const mintTx = await syndicate.transact.sendTransaction({
       projectId: "abcab73a-55d2-4441-a93e-edf95d183b34",
-      contractAddress: "0xTODO",
+      contractAddress: "0xBeFD018F3864F5BBdE665D6dc553e012076A5d44",
       chainId: 84532,
-      functionSignature: "mint()",
+      functionSignature: "mint(address to)",
+      args: {
+        // TODO: Change to the user's connected Farcaster address. This is going
+        // to WillPapper.eth for now
+        to: "0x3Cbd57dA2F08b3268da07E5C9038C11861828637",
+      },
     });
 
     res.status(200).json({
