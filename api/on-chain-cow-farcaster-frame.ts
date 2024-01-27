@@ -22,27 +22,12 @@ const syndicate = new SyndicateClient({
 });
 
 export default async function (req: VercelRequest, res: VercelResponse) {
-  // If the request is not a POST, we know that we're not dealing with a
-  // Farcaster Frame button click. Therefore, we should send the Farcaster Frame
-  // content
-  if (req.method !== "POST") {
-    res.status(200).send(`
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta property="fc:frame" content="vNext" />
-        <meta
-          property="fc:frame:image"
-          content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-neutral-cow.png"
-        />
-        <meta property="fc:frame:button:1" content="Mint your On-Chain Cow!" />
-      </head>
-    </html>
-    `);
-    // Farcaster Frames will send a POST request to this endpoint when the user
-    // clicks the button. Therefore, if we are dealing with a POST request, we
-    // can assume that we're responding to a Farcaster Frame button click
-  } else {
+  // Farcaster Frames will send a POST request to this endpoint when the user
+  // clicks the button. If we receive a POST request, we can assume that we're
+  // responding to a Farcaster Frame button click.
+  // A full version of this would have auth, but we're not dealing with any
+  // sensitive data or funds here
+  if (req.method == "POST") {
     try {
       // Mint the On-Chain Cow NFT. We're not passing in any arguments, since the
       // amount will always be 1
@@ -74,5 +59,22 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     } catch (error) {
       res.status(500).send(`Error: ${error.message}`);
     }
+  } else {
+    // If the request is not a POST, we know that we're not dealing with a
+    // Farcaster Frame button click. Therefore, we should send the Farcaster Frame
+    // content
+    res.status(200).send(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta property="fc:frame" content="vNext" />
+        <meta
+          property="fc:frame:image"
+          content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-neutral-cow.png"
+        />
+        <meta property="fc:frame:button:1" content="Mint your On-Chain Cow!" />
+      </head>
+    </html>
+    `);
   }
 }
