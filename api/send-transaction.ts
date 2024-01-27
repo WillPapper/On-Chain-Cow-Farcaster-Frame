@@ -44,7 +44,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
           <meta property="fc:frame" content="vNext" />
           <meta
             property="fc:frame:image"
-            content="img/on-chain-cow-happy-cow.png"
+            content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-happy-cow.png"
           />
           <meta property="fc:frame:button:1" content="Mint your On-Chain Cow!" />
         </head>
