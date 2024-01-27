@@ -1,8 +1,8 @@
 {
-  "repository": "https://github.com/WillPapper/circularity-minter",
+  "repository": "https://github.com/WillPapper/On-Chain-Cow-Farcaster-Frame",
   "license": "MIT",
-  "devDependencies": {
-    "@syndicateio/syndicate-node": "^0.0.302",
+  "dependencies": {
+    "@syndicateio/syndicate-node": "^0.0.449",
     "@vercel/node": "^3.0.7"
   }
 }
