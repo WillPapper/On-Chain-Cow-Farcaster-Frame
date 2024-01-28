@@ -205,7 +205,7 @@ async function getBalance(address: string) {
       })
       .toString();
   } catch {
-    console.log("Could not get cows minted for address: ", address);
+    console.log("Could not get balance for address: ", address);
   }
   console.log("Cows balance: ", balance);
   return balance;
