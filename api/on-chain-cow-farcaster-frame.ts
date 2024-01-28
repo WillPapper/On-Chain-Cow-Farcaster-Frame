@@ -33,6 +33,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       // Farcaster signature here
       const fid = req.body.untrustedData.fid;
       const addressFromFid = await getAddrByFid(fid);
+      console.log("Final address passed to Syndicate: ", addressFromFid);
       // Mint the On-Chain Cow NFT. We're not passing in any arguments, since the
       // amount will always be 1
       const mintTx = await syndicate.transact.sendTransaction({
