@@ -73,7 +73,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       // Get the current count of On-Chain Cows minted
       let balance = await getBalance(addressFromFid);
 
-      if (balance == "0") {
+      if (balance == "0" || balance == undefined) {
         res.status(200).setHeader("Content-Type", "text/html").send(`
         <!DOCTYPE html>
         <html>
@@ -194,16 +194,14 @@ async function getAddrByFid(fid: number) {
 }
 
 async function getBalance(address: string) {
-  let balance = "0";
+  let balance;
   try {
-    balance = await client
-      .readContract({
-        address: erc721Address,
-        abi: erc721Abi,
-        functionName: "balanceOf",
-        args: [address],
-      })
-      .toString();
+    balance = await client.readContract({
+      address: erc721Address,
+      abi: erc721Abi,
+      functionName: "balanceOf",
+      args: [address],
+    });
     console.log("Cows balance: ", balance);
   } catch {
     console.log("Could not get balance for address: ", address);
