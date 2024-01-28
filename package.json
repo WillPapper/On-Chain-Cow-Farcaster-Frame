@@ -3,6 +3,7 @@
   "license": "MIT",
   "dependencies": {
     "@syndicateio/syndicate-node": "^0.0.449",
-    "@vercel/node": "^3.0.7"
+    "@vercel/node": "^3.0.7",
+    "viem": "^2.5.0"
   }
 }
