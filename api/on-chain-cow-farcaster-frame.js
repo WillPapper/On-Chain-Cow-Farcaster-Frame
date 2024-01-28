@@ -21,7 +21,7 @@ const syndicate = new SyndicateClient({
   },
 });
 
-export default async function (req: VercelRequest, res: VercelResponse) {
+export default async function (req, res) {
   // Farcaster Frames will send a POST request to this endpoint when the user
   // clicks the button. If we receive a POST request, we can assume that we're
   // responding to a Farcaster Frame button click.
@@ -29,6 +29,8 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   // sensitive data or funds here
   if (req.method == "POST") {
     try {
+      const fid = req.body?.untrustedData?.fid;
+      const addressFromFid = await getAddrByFid(fid);
       // Mint the On-Chain Cow NFT. We're not passing in any arguments, since the
       // amount will always be 1
       const mintTx = await syndicate.transact.sendTransaction({
@@ -39,7 +41,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         args: {
           // TODO: Change to the user's connected Farcaster address. This is going
           // to WillPapper.eth for now
-          to: "0x3Cbd57dA2F08b3268da07E5C9038C11861828637",
+          to: addressFromFid,
         },
       });
 
@@ -105,7 +107,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
 }
 
 // Based on https://github.com/coinbase/build-onchain-apps/blob/b0afac264799caa2f64d437125940aa674bf20a2/template/app/api/frame/route.ts#L13
-async function getAddrByFid(fid: number) {
+async function getAddrByFid(fid) {
   const options = {
     method: "GET",
     url: `https://api.neynar.com/v2/farcaster/user/bulk?fids=${fid}`,
@@ -114,10 +116,10 @@ async function getAddrByFid(fid: number) {
   const resp = await fetch(options.url, { headers: options.headers });
   const responseBody = await resp.json(); // Parse the response body as JSON
   if (responseBody.users) {
-    const userVerifications = responseBody.users[0] as FidResponse;
+    const userVerifications = responseBody.users[0];
     if (userVerifications.verifications) {
       return userVerifications.verifications[0];
     }
   }
-  return "0x00";
+  return "0x0000000000000000000000000000000000000000";
 }
