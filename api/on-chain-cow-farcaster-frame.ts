@@ -21,7 +21,7 @@ const syndicate = new SyndicateClient({
   },
 });
 
-export default async function (req, res) {
+export default async function (req: VercelRequest, res: VercelResponse) {
   // Farcaster Frames will send a POST request to this endpoint when the user
   // clicks the button. If we receive a POST request, we can assume that we're
   // responding to a Farcaster Frame button click.
@@ -107,7 +107,7 @@ export default async function (req, res) {
 }
 
 // Based on https://github.com/coinbase/build-onchain-apps/blob/b0afac264799caa2f64d437125940aa674bf20a2/template/app/api/frame/route.ts#L13
-async function getAddrByFid(fid) {
+async function getAddrByFid(fid: number) {
   const options = {
     method: "GET",
     url: `https://api.neynar.com/v2/farcaster/user/bulk?fids=${fid}`,
