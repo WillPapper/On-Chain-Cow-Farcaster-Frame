@@ -5,8 +5,10 @@
 // addresses won't be able to be extracted from FIDs for minting
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { SyndicateClient } from "@syndicateio/syndicate-node";
-import { ethers } from "ethers";
+import { createPublicClient, http } from "viem";
+import { baseSepolia, mainnet } from "viem/chains";
 
+const erc721Address = "0xBeFD018F3864F5BBdE665D6dc553e012076A5d44";
 const erc721Abi = ["function balanceOf(address owner) view returns (uint256)"];
 
 const syndicate = new SyndicateClient({
@@ -24,15 +26,10 @@ const syndicate = new SyndicateClient({
   },
 });
 
-const alchemyProvider = new ethers.AlchemyProvider(
-  "base-sepolia",
-  process.env.ALCHEMY_BASE_SEPOLIA_API_KEY
-);
-const cowContract = new ethers.Contract(
-  "0xBeFD018F3864F5BBdE665D6dc553e012076A5d44",
-  erc721Abi,
-  alchemyProvider
-);
+const client = createPublicClient({
+  chain: baseSepolia,
+  transport: http("process.env.ALCHEMY_BASE_SEPOLIA_API_KEY"),
+});
 
 export default async function (req: VercelRequest, res: VercelResponse) {
   // Farcaster Frames will send a POST request to this endpoint when the user
@@ -189,9 +186,16 @@ async function getAddrByFid(fid: number) {
 }
 
 async function getBalance(address: string) {
-  let balance = 0;
+  let balance = "0";
   try {
-    balance = await cowContract.balanceOf(address);
+    balance = await client
+      .readContract({
+        address: erc721Address,
+        abi: erc721Abi,
+        functionName: "balanceOf",
+        args: [address],
+      })
+      .toString();
   } catch {
     console.log("Could not get cows minted for address: ", address);
   }
