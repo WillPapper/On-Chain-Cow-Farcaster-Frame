@@ -40,6 +40,10 @@ const client = createPublicClient({
 });
 
 export default async function (req: VercelRequest, res: VercelResponse) {
+  const balanceTest = await getBalance(
+    "0x3Cbd57dA2F08b3268da07E5C9038C11861828637"
+  );
+  console.log("Balance test: ", balanceTest);
   // Farcaster Frames will send a POST request to this endpoint when the user
   // clicks the button. If we receive a POST request, we can assume that we're
   // responding to a Farcaster Frame button click.
@@ -212,11 +216,3 @@ async function getBalance(address: string) {
   // Javascript number
   return Number(balance).toString();
 }
-
-getBalance("0x3Cbd57dA2F08b3268da07E5C9038C11861828637")
-  .then((getBalanceTest) => {
-    console.log("Test of getBalance: ", getBalanceTest);
-  })
-  .catch((error) => {
-    console.error("Error fetching balance: ", error);
-  });
