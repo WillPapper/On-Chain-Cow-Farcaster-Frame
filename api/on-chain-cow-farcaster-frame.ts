@@ -211,7 +211,7 @@ async function getBalance(address: string) {
   return balance;
 }
 
-console.log(
-  "Test of getBalance: ",
-  await getBalance("0x3Cbd57dA2F08b3268da07E5C9038C11861828637")
+const getBalanceTest = await getBalance(
+  "0x3Cbd57dA2F08b3268da07E5C9038C11861828637"
 );
+console.log("Test of getBalance: ", getBalanceTest);
