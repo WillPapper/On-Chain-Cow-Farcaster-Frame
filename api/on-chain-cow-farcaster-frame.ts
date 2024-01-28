@@ -116,7 +116,7 @@ async function getAddrByFid(fid: number) {
     url: `https://api.neynar.com/v2/farcaster/user/bulk?fids=${fid}`,
     headers: {
       accept: "application/json",
-      api_key: process.env.NEYNAR_API_KEY,
+      api_key: process.env.NEYNAR_API_KEY || "",
     },
   };
   console.log("Fetching response from Neynar API");
