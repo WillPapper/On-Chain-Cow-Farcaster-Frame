@@ -29,7 +29,8 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   // sensitive data or funds here
   if (req.method == "POST") {
     try {
-      const fid = req.body?.untrustedData?.fid;
+      console.log("req.body", req.body);
+      const fid = req.body.fid;
       const addressFromFid = await getAddrByFid(fid);
       // Mint the On-Chain Cow NFT. We're not passing in any arguments, since the
       // amount will always be 1
