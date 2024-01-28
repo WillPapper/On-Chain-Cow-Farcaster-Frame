@@ -50,6 +50,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
           to: addressFromFid,
         },
       });
+      console.log("Syndicate Transaction ID: ", mintTx.transactionId);
 
       res.status(200).setHeader("Content-Type", "text/html").send(`
       <!DOCTYPE html>
@@ -69,7 +70,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
           />
           <meta
             property="fc:frame:button:1"
-            content="Click me as much as you can! Mint MORE COWS!!"
+            content="Grow your on-chain pasture! Mint MORE COWS!"
           />
           <meta
             name="fc:frame:post_url"
@@ -101,7 +102,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
           property="fc:frame:image"
           content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-neutral-cow.png"
         />
-        <meta property="fc:frame:button:1" content="Mint your On-Chain Cow!" />
+        <meta property="fc:frame:button:1" content="How many On-Chain Cows can you mint?" />
         <meta
           name="fc:frame:post_url"
           content="https://on-chain-cow-farcaster-frame.vercel.app/api/on-chain-cow-farcaster-frame"
