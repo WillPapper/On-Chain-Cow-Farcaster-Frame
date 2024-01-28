@@ -204,10 +204,10 @@ async function getBalance(address: string) {
         args: [address],
       })
       .toString();
+    console.log("Cows balance: ", balance);
   } catch {
     console.log("Could not get balance for address: ", address);
   }
-  console.log("Cows balance: ", balance);
   return balance;
 }
 
