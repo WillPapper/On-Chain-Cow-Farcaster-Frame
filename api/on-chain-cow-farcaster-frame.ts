@@ -25,8 +25,7 @@ const syndicate = new SyndicateClient({
 });
 
 const alchemyProvider = new ethers.AlchemyProvider(
-  ethers.Network.from(84532),
-  process.env.ALCHEMY_API_KEY
+  process.env.ALCHEMY_BASE_SEPOLIA_API_KEY
 );
 const cowContract = new ethers.Contract(
   "0xBeFD018F3864F5BBdE665D6dc553e012076A5d44",
