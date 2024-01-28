@@ -1,8 +1,8 @@
-// This function will automatically trigger at 1 AM UTC on the first of every
-// month. See vercel.json for the cron schedule.
-// 1 AM is used instead of midnight to give humans an hour to mint the NFTs if
-// desired for on-chain provenance
-
+// Two very important environment variables to set that you MUST set in Vercel:
+// - SYNDICATE_API_KEY: The API key for your Syndicate project. If you're on the
+// demo plan, DM @Will on Farcaster/@WillPapper on Twitter to get upgraded.
+// - NEYNAR_API_KEY: The API key for your Neynar project. Without this,
+// addresses won't be able to be extracted from FIDs for minting
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { SyndicateClient } from "@syndicateio/syndicate-node";
 
@@ -137,5 +137,6 @@ async function getAddrByFid(fid: number) {
       return userVerifications.verifications[0].toString();
     }
   }
+  console.log("Could not fetch user address from Neynar API for FID: ", fid);
   return "0x0000000000000000000000000000000000000000";
 }
