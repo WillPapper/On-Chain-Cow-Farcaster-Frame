@@ -9,7 +9,15 @@ import { createPublicClient, http } from "viem";
 import { baseSepolia, mainnet } from "viem/chains";
 
 const erc721Address = "0xBeFD018F3864F5BBdE665D6dc553e012076A5d44";
-const erc721Abi = ["function balanceOf(address owner) view returns (uint256)"];
+const erc721Abi = [
+  {
+    inputs: [{ name: "owner", type: "address" }],
+    name: "balanceOf",
+    outputs: [{ name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+];
 
 const syndicate = new SyndicateClient({
   token: () => {
