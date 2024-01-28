@@ -206,7 +206,11 @@ async function getBalance(address: string) {
   } catch {
     console.log("Could not get balance for address: ", address);
   }
-  return balance;
+  // Convert from bigint to a Number and then to a string to avoid "178n" with n
+  // being appended to balances
+  // This is safe given that the balance will not exceed the max size of a
+  // Javascript number
+  return Number(balance).toString();
 }
 
 getBalance("0x3Cbd57dA2F08b3268da07E5C9038C11861828637")
