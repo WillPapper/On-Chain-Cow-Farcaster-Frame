@@ -128,6 +128,7 @@ async function getAddrByFid(fid: number) {
     const userVerifications = responseBody.users[0];
     console.log("userVerifications", userVerifications);
     if (userVerifications.verifications) {
+      console.log("Returning user address", userVerifications.verifications[0]);
       return userVerifications.verifications[0];
     }
   }
