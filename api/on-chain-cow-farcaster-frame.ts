@@ -43,11 +43,12 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         },
       });
 
-      res.status(200).send(`
+      res.status(200).setHeader("Content-Type", "text/html").send(`
       <!DOCTYPE html>
       <html>
         <head>
-          <title>On-Chain Cow!</title>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width" />
           <meta property="og:title" content="On-Chain Cow!" />
           <meta
             property="og:image"
@@ -58,10 +59,16 @@ export default async function (req: VercelRequest, res: VercelResponse) {
             property="fc:frame:image"
             content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-happy-cow.png"
           />
-          <meta property="fc:frame:button:1" content="Click me as much as you can! Mint MORE!!" />
+          <meta
+            property="fc:frame:button:1"
+            content="Click me as much as you can! Mint MORE!!"
+          />
+          <meta
+            name="fc:frame:post_url"
+            content="https://on-chain-cow-farcaster-frame.vercel.app/api/on-chain-cow-farcaster-frame"
+          />
         </head>
       </html>
-      
     `);
     } catch (error) {
       res.status(500).send(`Error: ${error.message}`);
@@ -70,11 +77,12 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     // If the request is not a POST, we know that we're not dealing with a
     // Farcaster Frame button click. Therefore, we should send the Farcaster Frame
     // content
-    res.status(200).send(`
+    res.status(200).setHeader("Content-Type", "text/html").send(`
     <!DOCTYPE html>
     <html>
       <head>
-        <title>On-Chain Cow!</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
         <meta property="og:title" content="On-Chain Cow!" />
         <meta
           property="og:image"
@@ -85,11 +93,11 @@ export default async function (req: VercelRequest, res: VercelResponse) {
           property="fc:frame:image"
           content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-neutral-cow.png"
         />
+        <meta property="fc:frame:button:1" content="Mint your On-Chain Cow!" />
         <meta
           name="fc:frame:post_url"
           content="https://on-chain-cow-farcaster-frame.vercel.app/api/on-chain-cow-farcaster-frame"
         />
-        <meta property="fc:frame:button:1" content="Mint your On-Chain Cow!" />
       </head>
     </html>
     `);
