@@ -25,12 +25,13 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   // Farcaster Frames will send a POST request to this endpoint when the user
   // clicks the button. If we receive a POST request, we can assume that we're
   // responding to a Farcaster Frame button click.
-  // A full version of this would have auth, but we're not dealing with any
-  // sensitive data or funds here
   if (req.method == "POST") {
     try {
       console.log("req.body", req.body);
-      const fid = req.body.fid;
+      // A full version of this would have auth, but we're not dealing with any
+      // sensitive data or funds here. If you'd like, you could validate the
+      // Farcaster signature here
+      const fid = req.body.untrustedData.fid;
       const addressFromFid = await getAddrByFid(fid);
       // Mint the On-Chain Cow NFT. We're not passing in any arguments, since the
       // amount will always be 1
