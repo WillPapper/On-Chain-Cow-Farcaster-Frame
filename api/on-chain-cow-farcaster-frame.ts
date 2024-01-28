@@ -129,7 +129,7 @@ async function getAddrByFid(fid: number) {
     console.log("userVerifications", userVerifications);
     if (userVerifications.verifications) {
       console.log("Returning user address", userVerifications.verifications[0]);
-      return userVerifications.verifications[0];
+      return userVerifications.verifications[0].toString();
     }
   }
   return "0x0000000000000000000000000000000000000000";
