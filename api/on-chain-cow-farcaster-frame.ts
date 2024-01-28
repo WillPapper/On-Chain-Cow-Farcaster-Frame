@@ -48,6 +48,8 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       <html>
         <head>
           <title>On-Chain Cow!</title>
+          <meta property="og:title" content="On-Chain Cow!" />
+          <meta property='og:image' content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-happy-cow.png" />
           <meta property="fc:frame" content="vNext" />
           <meta
             property="fc:frame:image"
@@ -69,6 +71,8 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     <html>
       <head>
         <title>On-Chain Cow!</title>
+        <meta property="og:title" content="On-Chain Cow!" />
+        <meta property='og:image' content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-neutral-cow.png" />
         <meta property="fc:frame" content="vNext" />
         <meta
           property="fc:frame:image"
