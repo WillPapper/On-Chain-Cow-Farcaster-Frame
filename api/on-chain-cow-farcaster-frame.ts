@@ -36,7 +36,7 @@ const syndicate = new SyndicateClient({
 
 const client = createPublicClient({
   chain: baseSepolia,
-  transport: http("process.env.ALCHEMY_BASE_SEPOLIA_API_KEY"),
+  transport: http(process.env.ALCHEMY_BASE_SEPOLIA_API_KEY),
 });
 
 export default async function (req: VercelRequest, res: VercelResponse) {
