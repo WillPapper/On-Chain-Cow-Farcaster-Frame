@@ -33,7 +33,10 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       // Farcaster signature here
       const fid = req.body.untrustedData.fid;
       const addressFromFid = await getAddrByFid(fid);
-      console.log("Final address passed to Syndicate: ", addressFromFid);
+      console.log(
+        "Extracted address from FID passed to Syndicate: ",
+        addressFromFid
+      );
       // Mint the On-Chain Cow NFT. We're not passing in any arguments, since the
       // amount will always be 1
       const mintTx = await syndicate.transact.sendTransaction({
@@ -120,20 +123,19 @@ async function getAddrByFid(fid: number) {
       api_key: process.env.NEYNAR_API_KEY || "",
     },
   };
-  console.log("Fetching response from Neynar API");
+  console.log("Fetching user address from Neynar API");
   const resp = await fetch(options.url, { headers: options.headers });
   console.log("Response: ", resp);
   const responseBody = await resp.json(); // Parse the response body as JSON
-  console.log("responseBody", responseBody);
   if (responseBody.users) {
     const userVerifications = responseBody.users[0];
-    console.log("userVerifications", userVerifications);
     if (userVerifications.verifications) {
-      console.log("Returning user address", userVerifications.verifications[0]);
+      console.log(
+        "User address from Neynar API: ",
+        userVerifications.verifications[0]
+      );
       return userVerifications.verifications[0].toString();
     }
   }
   return "0x0000000000000000000000000000000000000000";
 }
-
-getAddrByFid(155);
