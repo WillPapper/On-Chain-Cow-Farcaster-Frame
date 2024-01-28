@@ -63,7 +63,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
           />
           <meta
             property="fc:frame:button:1"
-            content="Click me as much as you can! Mint MORE!!"
+            content="Click me as much as you can! Mint MORE COWS!!"
           />
           <meta
             name="fc:frame:post_url"
