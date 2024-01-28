@@ -73,7 +73,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       // Get the current count of On-Chain Cows minted
       let balance = await getBalance(addressFromFid);
 
-      if (balance == 0) {
+      if (balance == "0") {
         res.status(200).setHeader("Content-Type", "text/html").send(`
         <!DOCTYPE html>
         <html>
@@ -213,5 +213,5 @@ async function getBalance(address: string) {
 
 console.log(
   "Test of getBalance: ",
-  getBalance("0x3Cbd57dA2F08b3268da07E5C9038C11861828637")
+  await getBalance("0x3Cbd57dA2F08b3268da07E5C9038C11861828637")
 );
