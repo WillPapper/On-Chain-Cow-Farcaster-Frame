@@ -49,15 +49,19 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         <head>
           <title>On-Chain Cow!</title>
           <meta property="og:title" content="On-Chain Cow!" />
-          <meta property='og:image' content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-happy-cow.png" />
+          <meta
+            property="og:image"
+            content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-happy-cow.png"
+          />
           <meta property="fc:frame" content="vNext" />
           <meta
             property="fc:frame:image"
             content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-happy-cow.png"
           />
-          <meta property="fc:frame:button:1" content="Mint your On-Chain Cow!" />
+          <meta property="fc:frame:button:1" content="Click me as much as you can! Mint MORE!!" />
         </head>
       </html>
+      
     `);
     } catch (error) {
       res.status(500).send(`Error: ${error.message}`);
@@ -72,13 +76,19 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       <head>
         <title>On-Chain Cow!</title>
         <meta property="og:title" content="On-Chain Cow!" />
-        <meta property='og:image' content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-neutral-cow.png" />
+        <meta
+          property="og:image"
+          content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-neutral-cow.png"
+        />
         <meta property="fc:frame" content="vNext" />
         <meta
           property="fc:frame:image"
           content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-neutral-cow.png"
         />
-        <meta name="fc:frame:post_url" content="https://on-chain-cow-farcaster-frame.vercel.app/api/on-chain-cow-farcaster-frame" />
+        <meta
+          name="fc:frame:post_url"
+          content="https://on-chain-cow-farcaster-frame.vercel.app/api/on-chain-cow-farcaster-frame"
+        />
         <meta property="fc:frame:button:1" content="Mint your On-Chain Cow!" />
       </head>
     </html>
