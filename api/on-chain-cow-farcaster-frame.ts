@@ -103,3 +103,21 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     `);
   }
 }
+
+// Based on https://github.com/coinbase/build-onchain-apps/blob/b0afac264799caa2f64d437125940aa674bf20a2/template/app/api/frame/route.ts#L13
+async function getAddrByFid(fid: number) {
+  const options = {
+    method: "GET",
+    url: `https://api.neynar.com/v2/farcaster/user/bulk?fids=${fid}`,
+    headers: { accept: "application/json", api_key: "NEYNAR_API_KEY" },
+  };
+  const resp = await fetch(options.url, { headers: options.headers });
+  const responseBody = await resp.json(); // Parse the response body as JSON
+  if (responseBody.users) {
+    const userVerifications = responseBody.users[0] as FidResponse;
+    if (userVerifications.verifications) {
+      return userVerifications.verifications[0];
+    }
+  }
+  return "0x00";
+}
