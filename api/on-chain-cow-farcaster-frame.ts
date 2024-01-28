@@ -5,6 +5,9 @@
 // addresses won't be able to be extracted from FIDs for minting
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { SyndicateClient } from "@syndicateio/syndicate-node";
+import { ethers } from "ethers";
+
+const erc721Abi = ["function balanceOf(address owner) view returns (uint256)"];
 
 const syndicate = new SyndicateClient({
   token: () => {
@@ -20,6 +23,16 @@ const syndicate = new SyndicateClient({
     return apiKey;
   },
 });
+
+const alchemyProvider = new ethers.AlchemyProvider(
+  "base-sepolia",
+  process.env.ALCHEMY_API_KEY
+);
+const cowContract = new ethers.Contract(
+  "0xBeFD018F3864F5BBdE665D6dc553e012076A5d44",
+  erc721Abi,
+  alchemyProvider
+);
 
 export default async function (req: VercelRequest, res: VercelResponse) {
   // Farcaster Frames will send a POST request to this endpoint when the user
@@ -52,33 +65,66 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       });
       console.log("Syndicate Transaction ID: ", mintTx.transactionId);
 
-      res.status(200).setHeader("Content-Type", "text/html").send(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8" />
-          <meta name="viewport" content="width=device-width" />
-          <meta property="og:title" content="On-Chain Cow!" />
-          <meta
-            property="og:image"
-            content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-happy-cow.png"
-          />
-          <meta property="fc:frame" content="vNext" />
-          <meta
-            property="fc:frame:image"
-            content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-happy-cow.png"
-          />
-          <meta
-            property="fc:frame:button:1"
-            content="Grow your on-chain pasture! Mint MORE COWS!"
-          />
-          <meta
-            name="fc:frame:post_url"
-            content="https://on-chain-cow-farcaster-frame.vercel.app/api/on-chain-cow-farcaster-frame"
-          />
-        </head>
-      </html>
+      // Get the current count of On-Chain Cows minted
+      let balance = await getBalance(addressFromFid);
+
+      if (balance == 0) {
+        res.status(200).setHeader("Content-Type", "text/html").send(`
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width" />
+            <meta property="og:title" content="On-Chain Cow!" />
+            <meta
+              property="og:image"
+              content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-happy-cow.png"
+            />
+            <meta property="fc:frame" content="vNext" />
+            <meta
+              property="fc:frame:image"
+              content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-happy-cow.png"
+            />
+            <meta
+              property="fc:frame:button:1"
+              content="Grow your on-chain pasture! Mint MORE COWS!"
+            />
+            <meta
+              name="fc:frame:post_url"
+              content="https://on-chain-cow-farcaster-frame.vercel.app/api/on-chain-cow-farcaster-frame"
+            />
+          </head>
+        </html>
     `);
+      } else {
+        res.status(200).setHeader("Content-Type", "text/html").send(`
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width" />
+            <meta property="og:title" content="On-Chain Cow!" />
+            <meta
+              property="og:image"
+              content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-happy-cow.png"
+            />
+            <meta property="fc:frame" content="vNext" />
+            <meta
+              property="fc:frame:image"
+              content="https://on-chain-cow-farcaster-frame.vercel.app/img/on-chain-cow-happy-cow.png"
+            />
+            <meta
+              property="fc:frame:button:1"
+              content="${balance} cows in your pasture with more on the way! Mint MORE COWS!"
+            />
+            <meta
+              name="fc:frame:post_url"
+              content="https://on-chain-cow-farcaster-frame.vercel.app/api/on-chain-cow-farcaster-frame"
+            />
+          </head>
+        </html>
+      `);
+      }
     } catch (error) {
       res.status(500).send(`Error: ${error.message}`);
     }
@@ -141,3 +187,19 @@ async function getAddrByFid(fid: number) {
   console.log("Could not fetch user address from Neynar API for FID: ", fid);
   return "0x0000000000000000000000000000000000000000";
 }
+
+async function getBalance(address: string) {
+  let balance = 0;
+  try {
+    balance = await cowContract.balanceOf(address);
+  } catch {
+    console.log("Could not get cows minted for address: ", address);
+  }
+  console.log("Cows balance: ", balance);
+  return balance;
+}
+
+console.log(
+  "Test of getBalance: ",
+  getBalance("0x3Cbd57dA2F08b3268da07E5C9038C11861828637")
+);
